@@ -1,59 +1,324 @@
 <!doctype html>
 <html lang="en">
-<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Facilities — HOSPITAL.EXE™</title><link rel="icon" href="assets/logo.svg" type="image/svg+xml"><link rel="apple-touch-icon" href="assets/logo.svg"><link rel="stylesheet" href="css/style.css"></head>
-<body>
-<div class="top-alert">FICTIONAL PARODY • EVERY FACILITY GETS ITS OWN ABSURD INCIDENT</div>
-<header class="site-header"><a class="brand" href="index.html"><img class="brand-logo" src="assets/logo.svg" alt="HOSPITAL.EXE logo"><span>HOSPITAL<span class="exe">.EXE</span><small>Healthcare has encountered an unexpected error.</small></span></a><button class="menu-toggle" aria-label="Open menu">☰</button><nav><a href="index.html">Home</a><a class="active" href="facilities.html">Facilities</a><a href="doctors.html">Doctors</a><a href="comics.html">Comics</a></nav></header>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="HOSPITAL.EXE fictional parody facilities — interactive absurd hospital incidents.">
+<title>Facilities — HOSPITAL.EXE™</title>
+<link rel="icon" href="assets/logo.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="assets/logo.svg">
+<link rel="stylesheet" href="css/style.css">
+<style>
+.facility-page{--terminal:#0b141d;--terminal2:#122331}
+.facility-page .page-hero{padding-bottom:45px}
+.facility-page .hero-kicker{display:inline-flex;gap:8px;align-items:center;border:2px solid var(--ink);background:#fff2cf;padding:8px 12px;font:900 .72rem ui-monospace,monospace;box-shadow:4px 4px 0 var(--ink);margin-bottom:22px}
+.facility-page .hero-kicker i{width:9px;height:9px;border-radius:50%;background:#e94d4d;display:block;box-shadow:0 0 0 4px #ffd9d9}
+.facility-page .hero-actions{margin-top:22px}
+.facility-page .stats{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin:10px 0 34px}
+.facility-page .stat{background:#fff;border:3px solid var(--ink);padding:16px;box-shadow:5px 5px 0 var(--ink)}
+.facility-page .stat small{display:block;color:var(--muted);font:900 .66rem ui-monospace,monospace;letter-spacing:.08em}
+.facility-page .stat b{display:block;font:950 1.7rem ui-monospace,monospace;margin-top:4px}
+.facility-page .console{background:var(--terminal);color:#dfffd8;border:3px solid var(--ink);box-shadow:8px 8px 0 var(--ink);padding:20px;margin-bottom:55px}
+.facility-page .console-top{display:flex;justify-content:space-between;gap:20px;align-items:center;flex-wrap:wrap}
+.facility-page .console-title{font:950 1.1rem ui-monospace,monospace;letter-spacing:.06em}
+.facility-page .console-status{color:#8fb9ff;font:800 .7rem ui-monospace,monospace}
+.facility-page .console-line{font:700 .78rem ui-monospace,monospace;color:#b8c8b3;margin:8px 0 16px}
+.facility-page .console-controls{display:flex;gap:9px;flex-wrap:wrap}
+.facility-page .console-btn{border:2px solid #dfffd8;background:transparent;color:#dfffd8;padding:9px 12px;font:900 .72rem ui-monospace,monospace;cursor:pointer}
+.facility-page .console-btn:hover{background:#dfffd8;color:#0b141d}
+.facility-page .console-btn.danger{border-color:#ffaaa0;color:#ffaaa0}
+.facility-page .meter{height:13px;border:2px solid #dfffd8;background:#1b2c39;margin-top:15px;overflow:hidden}
+.facility-page .meter i{display:block;height:100%;width:17%;background:#dfffd8;transition:.25s}
+.facility-page .live-wrap{scroll-margin-top:100px}
+.facility-page .live-paper{transform:rotate(-.4deg);margin-bottom:18px}
+.facility-page .live-paper .comic-grid{grid-template-columns:repeat(4,1fr)}
+.facility-page .live-meta{display:grid;grid-template-columns:1.5fr .7fr .7fr;gap:10px;margin-top:18px}
+.facility-page .meta-box{background:#fff;border:2px solid var(--ink);padding:13px;box-shadow:3px 3px 0 #cbd8e8}
+.facility-page .meta-box small{display:block;color:var(--muted);font:900 .62rem ui-monospace,monospace}
+.facility-page .meta-box b{display:block;margin-top:4px;font:900 .8rem ui-monospace,monospace}
+.facility-page .filters{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin:15px 0 25px}
+.facility-page .search{flex:1 1 280px;border:3px solid var(--ink);padding:12px 14px;font:700 .9rem inherit;box-shadow:4px 4px 0 var(--ink)}
+.facility-page .filter-btn{border:2px solid var(--ink);background:#fff;padding:9px 12px;font:900 .72rem ui-monospace,monospace;cursor:pointer}
+.facility-page .filter-btn.active,.facility-page .filter-btn:hover{background:var(--blue);color:#fff}
+.facility-page .facility-index{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;margin:18px 0 50px}
+.facility-page .index-btn{border:2px solid var(--ink);background:#fff;padding:10px 8px;text-align:left;cursor:pointer;font:800 .68rem ui-monospace,monospace;min-height:58px}
+.facility-page .index-btn:hover{background:#fff2cf;transform:translateY(-2px)}
+.facility-page .index-btn span{display:block;font-size:1.3rem;margin-bottom:3px}
+.facility-page .index-btn small{display:block;color:var(--muted);font-size:.62rem}
+.facility-page .facility-strip{scroll-margin-top:100px}
+.facility-page .strip-heading{align-items:center}
+.facility-page .strip-number{font:950 .65rem ui-monospace,monospace;color:var(--blue);border:2px solid var(--ink);padding:8px;box-shadow:3px 3px 0 var(--ink);background:#fff;white-space:nowrap}
+.facility-page .strip-heading>span{font-size:2.8rem}
+.facility-page .facility-strip .comic-paper{transform:rotate(.35deg)}
+.facility-page .facility-strip .panel{min-height:205px}
+.facility-page .facility-strip .panel:nth-child(2n){transform:rotate(-.4deg)}
+.facility-page .facility-strip .panel:nth-child(3n){transform:rotate(.5deg)}
+.facility-page .facility-strip .panel.punch{background:#fff2cf}
+.facility-page .history{background:#fff;border:3px solid var(--ink);padding:18px;box-shadow:6px 6px 0 var(--ink);margin:55px 0}
+.facility-page .history-head{display:flex;justify-content:space-between;gap:12px;align-items:center}
+.facility-page .history-list{display:grid;gap:7px;margin-top:12px}
+.facility-page .history-item{padding:10px;border:1px dashed #9ba9b9;font:700 .72rem ui-monospace,monospace;background:#f8fafc}
+.facility-page .history-item b{color:var(--blue)}
+.facility-page .hidden{display:none!important}
+.facility-page .empty{padding:35px;border:3px dashed var(--ink);background:#fff2cf;text-align:center;font-weight:900}
+.facility-page .secret{margin:55px 0 15px;border:3px solid var(--ink);background:#10233f;color:#fff;padding:24px;box-shadow:7px 7px 0 var(--ink)}
+.facility-page .secret h2{margin:0 0 5px;font-size:2rem}
+.facility-page .secret p{color:#b7c6da}
+.facility-page .secret button{margin-top:8px}
+.facility-page .parody-note{border-left:5px solid var(--red);padding:10px 14px;background:#fff7f5;color:var(--muted);font-size:.86rem}
+@media(max-width:900px){.facility-page .stats{grid-template-columns:1fr 1fr}.facility-page .facility-index{grid-template-columns:repeat(3,1fr)}.facility-page .live-paper .comic-grid{grid-template-columns:1fr 1fr}.facility-page .live-meta{grid-template-columns:1fr 1fr}}
+@media(max-width:560px){.facility-page .stats{grid-template-columns:1fr 1fr}.facility-page .facility-index{grid-template-columns:1fr 1fr}.facility-page .live-paper .comic-grid{grid-template-columns:1fr}.facility-page .live-meta{grid-template-columns:1fr}.facility-page .facility-strip .panel{min-height:160px}.facility-page .console{padding:15px}}
+</style>
+</head>
+<body class="facility-page">
+<div class="top-alert">FICTIONAL PARODY • FACILITIES ARE EXPLAINED WITH COMICS</div>
+
+<header class="site-header">
+<a class="brand" href="index.html">
+<img class="brand-logo" src="assets/logo.svg" alt="HOSPITAL.EXE logo">
+<span>HOSPITAL<span class="exe">.EXE</span><small>Healthcare has encountered an unexpected error.</small></span>
+</a>
+<button class="menu-toggle" aria-label="Open menu">☰</button>
+<nav>
+<a href="index.html">Home</a>
+<a class="active" href="facilities.html">Facilities</a>
+<a href="doctors.html">Doctors</a>
+<a href="comics.html">Comics</a>
+</nav>
+</header>
+
 <main>
-<section class="page-hero"><p class="eyebrow">OUR FACILITIES</p><h1>Real facilities.<br><em>Completely different nonsense.</em></h1><p>No copied four-panel template. Every facility has its own characters, problem, punchline and absurd mechanism.</p></section>
-<section class="section facility-intro"><div class="warning-tape">⚠ ABSURDITY ENGINE: NO-REPEAT MODE ⚠</div><p><strong>Python-generated comic data.</strong> Every facility uses a department-specific joke. The live incident changes on refresh and localStorage remembers what has already appeared.</p></section>
-<section class="section" id="facility-live"><div class="section-head"><div><p class="eyebrow">LIVE FACILITY INCIDENT</p><h2 id="live-title">LOADING...</h2></div><span class="sticker" id="live-count">MEMORY: 0</span></div><div class="comic-paper"><div class="comic-title" id="live-comic-title">FACILITY.EXE</div><div class="comic-grid four" id="live-panels"></div></div><div class="facility-note"><b>PARODY:</b> This incident is fictional and exists solely to make the facility explanation weird.</div></section>
+<section class="page-hero">
+<div class="hero-kicker"><i></i> FACILITY.EXE // BUILD 2.0 // STATUS: UNRELIABLY OPERATIONAL</div>
+<p class="eyebrow">OUR FACILITIES</p>
+<h1>Real facilities.<br><em>Unreal situations.</em></h1>
+<p>Every department gets its own fictional comic incident. No stock photos. No recycled “Patient → Staff → Robot” joke. The hospital is attempting to explain itself and the results are questionable.</p>
+<div class="hero-actions">
+<a class="button primary" href="#live-incident">⚡ Enter Live Incident</a>
+<button class="button" id="randomFacility">🎲 Random Facility</button>
+</div>
+</section>
+
+<section class="section">
+<div class="stats">
+<div class="stat"><small>FACILITIES</small><b id="statFacilities">20</b></div>
+<div class="stat"><small>GENERATED INCIDENTS</small><b id="statComics">100</b></div>
+<div class="stat"><small>SEEN THIS SESSION</small><b id="statSeen">0</b></div>
+<div class="stat"><small>CHAOS INDEX</small><b id="statChaos">???</b></div>
+</div>
+
+<div class="console">
+<div class="console-top">
+<div>
+<div class="console-title">HOSPITAL.EXE / FACILITY CONTROL TERMINAL</div>
+<div class="console-line" id="consoleLine">> booting absurdity engine...</div>
+</div>
+<div class="console-status" id="consoleStatus">● LIVE</div>
+</div>
+<div class="console-controls">
+<button class="console-btn" id="newIncident">GENERATE NEW INCIDENT</button>
+<button class="console-btn" id="surprise">SURPRISE ME</button>
+<button class="console-btn" id="clearHistory">CLEAR MEMORY</button>
+</div>
+<div class="meter"><i id="chaosMeter"></i></div>
+</div>
+</section>
+
+<section class="section live-wrap" id="live-incident">
+<div class="section-head">
+<div><p class="eyebrow">LIVE FACILITY INCIDENT</p><h2 id="live-title">INITIALIZING...</h2></div>
+<span class="sticker" id="live-count">SHUFFLE-BAG: 0 / 100</span>
+</div>
+
+<div class="comic-paper live-paper">
+<div class="comic-title" id="live-comic-title">FACILITY.EXE // BOOTING COMIC ENGINE</div>
+<div class="comic-grid" id="live-panels"></div>
+</div>
+
+<div class="live-meta">
+<div class="meta-box"><small>INCIDENT ID</small><b id="live-id">FAC-000</b></div>
+<div class="meta-box"><small>CHAOS</small><b id="live-chaos">CALCULATING</b></div>
+<div class="meta-box"><small>STATUS</small><b id="live-state">QUESTIONABLE</b></div>
+</div>
+
+<div class="parody-note" style="margin-top:15px"><b>FICTIONAL PARODY:</b> This page uses invented incidents to explain real-world hospital departments. Nothing here is medical advice, an operational instruction, or a substitute for professional care.</div>
+</section>
+
+<section class="section">
+<div class="section-head">
+<div><p class="eyebrow">FACILITY DIRECTORY</p><h2>Pick your department.</h2></div>
+<span class="sticker" id="resultCount">20 FOUND</span>
+</div>
+<div class="filters">
+<input class="search" id="facilitySearch" type="search" placeholder="Search Radiology, IT, pharmacy, chaos..." autocomplete="off">
+<button class="filter-btn active" data-filter="all">ALL</button>
+<button class="filter-btn" data-filter="diagnostic">DIAGNOSTICS</button>
+<button class="filter-btn" data-filter="clinical">CLINICAL</button>
+<button class="filter-btn" data-filter="support">SUPPORT</button>
+</div>
+<div class="facility-index" id="facilityIndex"></div>
+</section>
+
 <section class="section comic-list" id="facility-list"></section>
+
+<section class="section">
+<div class="history">
+<div class="history-head"><div><p class="eyebrow">LOCAL MEMORY</p><h2 style="margin:0">Incident archive</h2></div><span class="sticker" id="historyCount">0 STORED</span></div>
+<div class="history-list" id="historyList"></div>
+</div>
+
+<div class="secret">
+<p class="eyebrow" style="color:#82b4ff">CLASSIFIED // DO NOT SHOW ADMINISTRATION</p>
+<h2>There may be a 101st comic.</h2>
+<p>The generator officially claims there are 100 unique facility incidents. The building disagrees.</p>
+<button class="console-btn" id="unlockSecret">CHECK FOR UNAUTHORIZED COMIC</button>
+<div id="secretOutput" style="margin-top:10px;font:800 .78rem ui-monospace,monospace"></div>
+</div>
+</section>
 </main>
-<footer><strong>HOSPITAL.EXE™</strong><span>Fictional parody website.</span><span>Facilities: <b>20</b> • Unique facility comics: <b>100</b> • No copied comic template</span></footer>
-<script src="js/generated-content.js"></script><script src="js/facility-engine.js"></script>
+
+<footer>
+<strong>HOSPITAL.EXE™</strong>
+<span>Fictional parody website.</span>
+<span>Facilities: <b>20</b> • Comics: <b>100+</b> • Reality: <b>NOT FOUND</b></span>
+</footer>
+
+<script src="js/generated-content.js"></script>
+<script src="js/facility-engine.js"></script>
 <script>
 (()=> {
+"use strict";
+
 const facilities=[
-["🩻","FACILITY 01","Radiology","Imaging, scanning, and the internationally recognized art of lying completely still."],
-["🧪","FACILITY 02","Laboratory","Where samples become numbers, numbers become reports, and reports become questions."],
-["🚑","FACILITY 03","Emergency","Fast response, organized teamwork, and absolutely no time for dramatic monologues."],
-["🛏️","FACILITY 04","Patient Rooms","Rest, recovery, and the eternal search for the Wi-Fi password."],
-["🔪","DEPARTMENT 05","Operation Theatre","Precision procedures, surgical teamwork, and a clipboard that believes it is management."],
-["🫀","DEPARTMENT 06","ICU / Critical Care","High-acuity monitoring, serious teamwork, and machines with strong opinions."],
-["💊","DEPARTMENT 07","Pharmacy","Medication dispensing, inventory, and the legendary missing pen investigation."],
-["🧼","DEPARTMENT 08","Housekeeping","The department quietly defeating every fictional mess created by the rest of the building."],
-["🍽️","DEPARTMENT 09","Cafeteria & Nutrition","Food service, hydration, and tea powerful enough to restart meetings."],
-["🧾","DEPARTMENT 10","Billing & Accounts","Numbers, paperwork, totals, and computers reconsidering their life choices."],
-["📞","DEPARTMENT 11","Reception & Registration","Tokens, forms, directions and the front desk command center."],
-["🛗","DEPARTMENT 12","Patient Transport","Wheelchairs, stretchers, elevators and the eternal question: which floor?"],
-["🧫","DEPARTMENT 13","Microbiology","Tiny organisms, giant microscopes, and reports that arrive when emotionally prepared."],
-["🩸","DEPARTMENT 14","Blood Bank","A highly organized fictional department where every label has a clipboard nearby."],
-["🧑‍⚕️","DEPARTMENT 15","Physiotherapy & Rehabilitation","Movement, recovery and the suspiciously difficult exercise called 'one more time'."],
-["🦷","DEPARTMENT 16","Dental Unit","Teeth, chairs, lights and the universal moment when everyone suddenly remembers to floss."],
-["👁️","DEPARTMENT 17","Ophthalmology","Eyes, vision checks and the chart that becomes mysteriously smaller every row."],
-["👂","DEPARTMENT 18","ENT","Ear, nose and throat care, plus the ancient art of saying 'please repeat that'."],
-["🧬","DEPARTMENT 19","Genetics & Molecular Lab","Advanced fictional diagnostics where every acronym requires its own acronym."],
-["🖥️","DEPARTMENT 20","Hospital IT Command","Servers, printers, Wi-Fi and the department that knows restarting it is always an option."]
+["🩻","FACILITY 01","Radiology","Imaging, scanning, and the internationally recognized art of lying completely still.","diagnostic"],
+["🧪","FACILITY 02","Laboratory","Where samples become numbers, numbers become reports, and reports become questions.","diagnostic"],
+["🚑","FACILITY 03","Emergency","Fast response, organized teamwork, and absolutely no time for dramatic monologues.","clinical"],
+["🛏️","FACILITY 04","Patient Rooms","Rest, recovery, and the eternal search for the Wi-Fi password.","support"],
+["🔪","DEPARTMENT 05","Operation Theatre","Precision procedures, surgical teamwork, and a clipboard that believes it is management.","clinical"],
+["🫀","DEPARTMENT 06","ICU / Critical Care","High-acuity monitoring, serious teamwork, and machines with strong opinions.","clinical"],
+["💊","DEPARTMENT 07","Pharmacy","Medication dispensing, inventory, and the legendary missing pen investigation.","support"],
+["🧼","DEPARTMENT 08","Housekeeping","The department quietly defeating every fictional mess created by the rest of the building.","support"],
+["🍽️","DEPARTMENT 09","Cafeteria & Nutrition","Food service, hydration, and tea powerful enough to restart meetings.","support"],
+["🧾","DEPARTMENT 10","Billing & Accounts","Numbers, paperwork, totals, and computers reconsidering their life choices.","support"],
+["📞","DEPARTMENT 11","Reception & Registration","Tokens, forms, directions and the front desk command center.","support"],
+["🛗","DEPARTMENT 12","Patient Transport","Wheelchairs, stretchers, elevators and the eternal question: which floor?","support"],
+["🧫","DEPARTMENT 13","Microbiology","Tiny organisms, giant microscopes, and reports that arrive when emotionally prepared.","diagnostic"],
+["🩸","DEPARTMENT 14","Blood Bank","A highly organized fictional department where every label has a clipboard nearby.","clinical"],
+["🧑‍⚕️","DEPARTMENT 15","Physiotherapy & Rehabilitation","Movement, recovery and the suspiciously difficult exercise called 'one more time'.","clinical"],
+["🦷","DEPARTMENT 16","Dental Unit","Teeth, chairs, lights and the universal moment when everyone suddenly remembers to floss.","clinical"],
+["👁️","DEPARTMENT 17","Ophthalmology","Eyes, vision checks and the chart that becomes mysteriously smaller every row.","clinical"],
+["👂","DEPARTMENT 18","ENT","Ear, nose and throat care, plus the ancient art of saying 'please repeat that'.","clinical"],
+["🧬","DEPARTMENT 19","Genetics & Molecular Lab","Advanced fictional diagnostics where every acronym requires its own acronym.","diagnostic"],
+["🖥️","DEPARTMENT 20","Hospital IT Command","Servers, printers, Wi-Fi and the department that knows restarting it is always an option.","support"]
 ];
+
 const pool=window.HOSPITAL_CONTENT?.facilityComics||[];
-const byFacility=new Map(pool.map(x=>[x[0],x]));
 const list=document.getElementById("facility-list");
-list.innerHTML=facilities.map((f,i)=>{
- const c=byFacility.get(f[2]);
- const panels=c?.[2]||["FACILITY: Awaiting Python comic.","SYSTEM: This should never happen.","UNIVERSE: It happened.","SYSTEM: Please reboot the universe."];
- return '<article class="facility-strip" id="facility-'+(i+1)+'"><div class="strip-heading"><span>'+f[0]+'</span><div><p class="eyebrow">'+f[1]+'</p><h2>'+f[2]+'</h2><p>'+f[3]+'</p></div></div><div class="comic-paper"><div class="comic-title">'+(c?.[1]||"UNIQUE INCIDENT")+'</div><div class="comic-grid four">'+panels.map((p,n)=>'<div class="panel '+(n===3?'punch':'')+'"><span class="panel-no">0'+(n+1)+'</span><div class="character">'+["🧑","🧑‍⚕️","🤖","😐"][n]+'</div><p>'+p+'</p></div>').join('')+'</div></div><div class="facility-note"><b>IN REAL LIFE:</b> '+f[2]+' is presented here as a fictional parody of a real hospital service. <span>COMIC IS NOT MEDICAL ADVICE.</span></div></article>';
-}).join("");
-const KEY="hospital-exe-facility-live-v2"; let bag=[]; try{bag=JSON.parse(localStorage.getItem(KEY)||"[]")}catch{}
-function refill(){bag=pool.map((_,i)=>i);for(let i=bag.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[bag[i],bag[j]]=[bag[j],bag[i]]}}
-function live(){if(!Array.isArray(bag)||!bag.length)refill();const x=pool[bag.pop()];localStorage.setItem(KEY,JSON.stringify(bag));
- document.getElementById("live-title").textContent=x[0];
- document.getElementById("live-comic-title").textContent=x[1];
- document.getElementById("live-panels").innerHTML=x[2].map((p,n)=>'<div class="panel '+(n===3?'punch':'')+'"><span class="panel-no">0'+(n+1)+'</span><div class="character">'+["🧑","🧑‍⚕️","🤖","😐"][n]+'</div><p>'+p+'</p></div>').join("");
- document.getElementById("live-count").textContent="SHUFFLE-BAG: "+(pool.length-bag.length)+" / "+pool.length;
+const index=document.getElementById("facilityIndex");
+const search=document.getElementById("facilitySearch");
+const historyKey="hospital-exe-facility-history-v3";
+const bagKey="hospital-exe-facility-bag-v3";
+const chars=["🧑","🧑‍⚕️","🤖","😐"];
+let history=read(historyKey,[]);
+let bag=read(bagKey,[]);
+let current=null;
+let currentFilter="all";
+
+function read(key,fallback){try{const v=JSON.parse(localStorage.getItem(key)||"null");return v??fallback}catch{return fallback}}
+function save(key,value){localStorage.setItem(key,JSON.stringify(value))}
+function shuffle(a){for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a}
+function esc(v){return String(v).replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"}[m]))}
+function categoryFor(name){return facilities.find(f=>f[2]===name)?.[4]||"support"}
+function chaosFor(text){let n=0;for(const c of String(text))n=(n+c.charCodeAt(0))%101;return Math.max(7,n)}
+function incidentId(i){return "FAC-"+String(i+1).padStart(3,"0")+"-"+String((i*7919)%9999).padStart(4,"0")}
+function refill(){bag=shuffle(pool.map((_,i)=>i));save(bagKey,bag)}
+function pick(){if(!bag.length)refill();const i=bag.pop();save(bagKey,bag);return {item:pool[i],index:i}}
+function setConsole(msg,status="● LIVE"){document.getElementById("consoleLine").textContent="> "+msg;document.getElementById("consoleStatus").textContent=status}
+function renderPanels(panels){
+return panels.map((p,n)=>'<div class="panel '+(n===3?'punch':'')+'"><span class="panel-no">0'+(n+1)+'</span><div class="character">'+chars[n]+'</div><p>'+esc(p)+'</p></div>').join("")
 }
-live();
+function renderLive(force){
+const picked=force||pick();const x=picked.item;current={...picked};
+const name=x[0],title=x[1],panels=x[2];
+const chaos=chaosFor(name+" "+title+" "+panels.join(" "));
+document.getElementById("live-title").textContent=name;
+document.getElementById("live-comic-title").textContent=title;
+document.getElementById("live-panels").innerHTML=renderPanels(panels);
+document.getElementById("live-id").textContent=incidentId(picked.index);
+document.getElementById("live-chaos").textContent=chaos+"/100";
+document.getElementById("live-state").textContent=chaos>80?"ABSURD":chaos>55?"UNSTABLE":"QUESTIONABLE";
+document.getElementById("live-count").textContent="SHUFFLE-BAG: "+(pool.length-bag.length)+" / "+pool.length;
+document.getElementById("statSeen").textContent=history.length;
+document.getElementById("statChaos").textContent=chaos+"/100";
+document.getElementById("chaosMeter").style.width=chaos+"%";
+setConsole("loaded "+name+" // "+title.toLowerCase());
+remember(name,title,picked.index);
+}
+function remember(name,title,indexNo){
+const id=incidentId(indexNo);
+if(history.some(h=>h.id===id))return;
+history.unshift({id,name,title,time:new Date().toLocaleTimeString([], {hour:"2-digit",minute:"2-digit"})});
+history=history.slice(0,12);save(historyKey,history);renderHistory();
+}
+function renderHistory(){
+document.getElementById("historyCount").textContent=history.length+" STORED";
+document.getElementById("statSeen").textContent=history.length;
+const el=document.getElementById("historyList");
+el.innerHTML=history.length?history.map(h=>'<div class="history-item"><b>'+esc(h.id)+'</b> · '+esc(h.name)+' · '+esc(h.title)+' <span style="float:right">'+esc(h.time)+'</span></div>').join(""):'<div class="empty">NO INCIDENTS REMEMBERED.<br>The hospital has conveniently forgotten everything.</div>';
+}
+function renderIndex(){
+const q=search.value.trim().toLowerCase();
+const visible=facilities.filter(f=>(currentFilter==="all"||f[4]===currentFilter)&&(!q||(f[2]+" "+f[3]).toLowerCase().includes(q)));
+document.getElementById("resultCount").textContent=visible.length+" FOUND";
+index.innerHTML=visible.map((f,i)=>'<button class="index-btn" data-target="facility-'+facilities.indexOf(f)+'"><span>'+f[0]+'</span>'+esc(f[2])+'<small>'+f[4].toUpperCase()+'</small></button>').join("");
+document.querySelectorAll(".index-btn").forEach(btn=>btn.addEventListener("click",()=>document.getElementById(btn.dataset.target)?.scrollIntoView({behavior:"smooth",block:"start"})));
+}
+function renderList(){
+const byFacility=new Map();
+pool.forEach((x,i)=>{if(!byFacility.has(x[0]))byFacility.set(x[0],x)});
+list.innerHTML=facilities.map((f,i)=>{
+const c=byFacility.get(f[2]);
+const panels=c?.[2]||["FACILITY: Awaiting comic.","SYSTEM: Something went wrong.","UNIVERSE: It happened anyway.","SYSTEM: Please reboot the universe."];
+return '<article class="facility-strip" id="facility-'+i+'" data-category="'+f[4]+'" data-name="'+esc(f[2])+'"><div class="strip-heading"><span>'+f[0]+'</span><div><div class="strip-number">'+f[1]+' // '+f[4].toUpperCase()+'</div><h2>'+esc(f[2])+'</h2><p>'+esc(f[3])+'</p></div></div><div class="comic-paper"><div class="comic-title">'+esc(c?.[1]||"UNIQUE INCIDENT")+'</div><div class="comic-grid four">'+renderPanels(panels)+'</div></div><div class="facility-note"><b>IN REAL LIFE:</b> '+esc(f[2])+' is represented here as a fictional parody of a hospital service. <span>COMIC IS NOT MEDICAL ADVICE.</span></div></article>'
+}).join("");
+}
+function applyFilters(){
+const q=search.value.trim().toLowerCase();let count=0;
+document.querySelectorAll(".facility-strip").forEach(el=>{
+const okCat=currentFilter==="all"||el.dataset.category===currentFilter;
+const okText=!q||(el.dataset.name+" "+el.textContent).toLowerCase().includes(q);
+const show=okCat&&okText;el.classList.toggle("hidden",!show);if(show)count++;
+});
+document.getElementById("resultCount").textContent=count+" FOUND";
+}
+document.getElementById("newIncident").addEventListener("click",()=>{renderLive();document.getElementById("live-incident").scrollIntoView({behavior:"smooth"})});
+document.getElementById("surprise").addEventListener("click",()=>{renderLive();setConsole("SURPRISE MODE: department selected without human authorization","● CHAOS")});
+document.getElementById("randomFacility").addEventListener("click",()=>{
+const f=facilities[Math.floor(Math.random()*facilities.length)];
+document.getElementById("facility-"+facilities.indexOf(f)).scrollIntoView({behavior:"smooth",block:"start"});
+setConsole("random department selected: "+f[2]);
+});
+document.getElementById("clearHistory").addEventListener("click",()=>{
+history=[];bag=[];save(historyKey,history);save(bagKey,bag);renderHistory();renderLive();setConsole("memory wiped // this was probably a mistake","● MEMORY EMPTY");
+});
+document.getElementById("unlockSecret").addEventListener("click",()=>{
+const out=document.getElementById("secretOutput");
+out.textContent="ACCESSING UNAUTHORIZED COMIC...";
+setTimeout(()=>out.textContent="FOUND: COMIC #101 — “THE HOSPITAL EXPLAINS ITSELF” — STATUS: TOO ABSURD TO DISPLAY.",450);
+});
+search.addEventListener("input",applyFilters);
+document.querySelectorAll(".filter-btn").forEach(btn=>btn.addEventListener("click",()=>{
+document.querySelectorAll(".filter-btn").forEach(b=>b.classList.remove("active"));btn.classList.add("active");currentFilter=btn.dataset.filter;applyFilters();
+}));
+document.querySelector(".menu-toggle")?.addEventListener("click",()=>document.querySelector(".site-header nav")?.classList.toggle("open"));
+
+document.getElementById("statFacilities").textContent=facilities.length;
+document.getElementById("statComics").textContent=pool.length;
+renderList();renderIndex();renderHistory();
+if(!Array.isArray(bag)||bag.some(i=>i<0||i>=pool.length))bag=[];
+renderLive();
 })();
 </script>
 <script src="js/app.js"></script>
-</body></html>
+</body>
+</html>
