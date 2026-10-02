@@ -47,9 +47,37 @@ stories = [
     ("THE LAB REPORT", "DOCTOR", "REPORT", "Is the report ready?", "The report is reviewing itself."),
     ("THE BED ALARM", "NURSE", "BED 7", "Why is the bed alarm ringing?", "The bed saw a ghost."),
     ("THE HOSPITAL ROOFTOP", "STAFF", "ROOFTOP", "Why is there a waiting room here?", "The elevator made a decision."),
-]
-
-def comic(title, left, right, line1, line2):
+    ["THE SURGEON'S COFFEE","SURGEON","COFFEE","Where is my coffee?","It has been referred to another department."],
+    ["THE STETHOSCOPE","DOCTOR","STETHOSCOPE","I hear nothing.","The stethoscope is on silent mode."],
+    ["THE CONSULTATION","PATIENT","DOCTOR","What is your diagnosis?","Please wait. My brain is buffering."],
+    ["THE APPOINTMENT","PATIENT","RECEPTION","My appointment is at 5.","Which 5?"],
+    ["THE DISCHARGE","PATIENT","DISCHARGE","Can I go home now?","Your file has decided to stay."],
+    ["THE REFERRAL","DOCTOR","REFERRAL","I will refer you.","To whom?","The referral itself is still deciding."],
+    ["THE SIGNATURE","ADMIN","FORM","Where do I sign?","Anywhere that looks official."],
+    ["THE STAMP","ADMIN","STAMP","Is this approved?","STAMP says maybe."],
+    ["THE TOKEN MACHINE","PATIENT","TOKEN MACHINE","I pressed the button.","Congratulations. You are now Token 9000."],
+    ["THE WAITING ROOM","PATIENT","CHAIR","How long have I been waiting?","The chair remembers. You do not."],
+    ["THE ONE MORE TEST","PATIENT","DOCTOR","Is that the last test?","Absolutely. One more."],
+    ["THE TRY AGAIN","STAFF","COMPUTER","Did it work?","No. Try again with confidence."],
+    ["THE PASSWORD","NURSE","COMPUTER","What's the password?","I forgot it while saying it."],
+    ["THE WIFI PASSWORD","VISITOR","RECEPTION","What's the Wi-Fi password?","Please ask the Wi-Fi."],
+    ["THE LOW BATTERY","DOCTOR","PHONE","My phone is at 1%.","Perfect. Emergency mode."],
+    ["THE NO SIGNAL","STAFF","PHONE","Can you call the lab?","No signal. Try shouting."],
+    ["THE UPDATE","IT","COMPUTER","Should we update now?","No. But I already did."],
+    ["THE REBOOT","IT","SERVER","Have you restarted it?","I restarted myself."],
+    ["THE TIMEOUT","PATIENT","SCREEN","Why did it time out?","It got tired of waiting."],
+    ["THE CRASH","STAFF","COMPUTER","The system crashed.","It has requested a pillow."],
+    ["THE GLITCH","NURSE","MONITOR","Why is the screen upside down?","The monitor has a different opinion."],
+    ["THE OFFLINE DOCTOR","PATIENT","DOCTOR","Doctor, are you available?","Currently emotionally offline."],
+    ["THE BACKUP","IT","SERVER","Do we have a backup?","Yes. It is also confused."],
+    ["THE DEBUG","IT","COMPUTER","Find the bug.","I found seventeen and they have formed a union."],
+    ["THE FIREWALL","SECURITY","FIREWALL","Who blocked the network?","The firewall has trust issues."],
+    ["THE SCREENSHOT","ADMIN","SCREEN","Take a screenshot.","The screen is camera-shy."],
+    ["THE POPUP","STAFF","COMPUTER","Close the popup.","It has opened another popup."],
+    ["THE NOTIFICATION","NURSE","PHONE","What's that alarm?","A notification demanding attention."],
+    ["THE AIRPLANE MODE","PATIENT","PHONE","Why is there no network?","Your phone has gone on vacation."],
+    ["THE FINAL FORM","ADMIN","FORM 99-Z","Is this the final form?","Yes. Unless there is a final final form."],
+]\n\ndef comic(title, left, right, line1, line2):
     e = escape
     return f'''<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 420">
 <rect width="1200" height="420" fill="#fffdf7"/>
