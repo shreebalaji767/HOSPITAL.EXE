@@ -100,6 +100,28 @@ POOLS = {
         "Chaos alert: normality failed the validation check.",
         "Chaos alert: the queue has achieved sentience."
     ],
+    "facilityComics": [
+        ["Radiology","THE MAGNETIC PERSONALITY",["PATIENT: Why is the scanner so loud?","TECH: It has a lot to say.","MACHINE: KRRR-CLUNK.","PATIENT: Was that a word?"]],
+        ["Laboratory","THE TUBE MEETING",["TECH: Why are all the tubes together?","STAFF: They have a meeting.","TECH: About what?","STAFF: Results."]],
+        ["Emergency","THE FASTEST FORM",["NURSE: We need the emergency form.","ADMIN: Which one?","NURSE: The fast one.","ADMIN: They are all fast until Page 4."]],
+        ["Patient Rooms","THE REMOTE",["PATIENT: Where is the TV remote?","STAFF: On the bed.","PATIENT: No, it isn't.","BED: Check under the pillow."]],
+        ["Operation Theatre","THE CHECKLIST",["SURGEON: Checklist?","NURSE: Complete.","CLIPBOARD: I disagree.","SURGEON: The clipboard has spoken."]],
+        ["ICU / Critical Care","THE DRAMATIC BEEP",["MONITOR: BEEP.","NURSE: Okay.","MONITOR: BEEP BEEP.","NURSE: We have discussed your dramatic timing."]],
+        ["Pharmacy","THE MISSING PEN",["PHARMACIST: Has anyone seen my pen?","STAFF: Which pen?","PHARMACIST: The blue one.","PEN: I am currently in another department."]],
+        ["Housekeeping","THE LAST DUST PARTICLE",["STAFF: Room spotless.","DUST: Not quite.","STAFF: Where?","DUST: I refuse to disclose my location."]],
+        ["Cafeteria & Nutrition","THE TEA COUP",["STAFF: Who authorized another tea break?","TEA: Nobody.","STAFF: Then why are there thirty cups?","TEA: Democracy."]],
+        ["Billing & Accounts","THE FINAL BILL",["PATIENT: Is this the final bill?","BILLING: Yes.","PATIENT: Absolutely final?","BILLING: Final for this particular definition of final."]],
+        ["Reception & Registration","TOKEN 847",["PATIENT: My token is 847.","RECEPTION: Correct.","PATIENT: What is the current token?","RECEPTION: We stopped counting."]],
+        ["Patient Transport","THE WRONG FLOOR",["STAFF: Which floor?","PATIENT: Third.","ELEVATOR: I heard fourth.","STAFF: The elevator has voted."]],
+        ["Microbiology","THE TINY BOSS",["TECH: Why is the culture plate on the desk?","STAFF: It has a question.","TECH: What question?","PLATE: Who is actually in charge here?"]],
+        ["Blood Bank","THE LABEL AUDIT",["STAFF: Every label is checked.","LABEL: I checked you too.","STAFF: Labels cannot audit staff.","LABEL: That sounds like a challenge."]],
+        ["Physiotherapy & Rehabilitation","ONE MORE",["THERAPIST: One more repetition.","PATIENT: You said that five repetitions ago.","THERAPIST: Correct.","EXERCISE: I have become a sequel."]],
+        ["Dental Unit","THE DENTAL CHAIR",["PATIENT: Does the chair recline?","DENTIST: Yes.","CHAIR: I prefer the word launch.","PATIENT: I have concerns."]],
+        ["Ophthalmology","THE CHART",["DOCTOR: Read the smallest line.","PATIENT: I cannot.","CHART: Finally, some privacy.","DOCTOR: The chart has become self-aware."]],
+        ["ENT","PLEASE REPEAT",["DOCTOR: Can you hear me?","PATIENT: What?","DOCTOR: Exactly.","EAR: I would like to clarify my position."]],
+        ["Genetics & Molecular Lab","THE ACRONYM",["SCIENTIST: We need the PCR report.","PATIENT: What does PCR mean?","SCIENTIST: An acronym.","ACRONYM: I refuse to explain myself."]],
+        ["Hospital IT Command","THE RESTART",["STAFF: The system is frozen.","IT: Have you restarted it?","STAFF: Three times.","IT: Excellent. We can now restart it professionally."]]
+    ],
     "incidents": [
         ["PRINTER RIOT","The printer has declared independence.",-35,8],
         ["ELEVATOR PHILOSOPHY","The elevator refuses to visit Floor 2.",-20,6],
