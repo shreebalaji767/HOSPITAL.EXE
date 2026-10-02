@@ -10,8 +10,8 @@
 <section class="section" id="facility-live"><div class="section-head"><div><p class="eyebrow">LIVE FACILITY INCIDENT</p><h2 id="live-title">LOADING...</h2></div><span class="sticker" id="live-count">MEMORY: 0</span></div><div class="comic-paper"><div class="comic-title" id="live-comic-title">FACILITY.EXE</div><div class="comic-grid four" id="live-panels"></div></div><div class="facility-note"><b>PARODY:</b> This incident is fictional and exists solely to make the facility explanation weird.</div></section>
 <section class="section comic-list" id="facility-list"></section>
 </main>
-<footer><strong>HOSPITAL.EXE™</strong><span>Fictional parody website.</span><span>Facilities: <b>20</b> • Unique facility comics: <b>100+</b> • No copied comic template</span></footer>
-<script src="js/generated-content.js"></script>
+<footer><strong>HOSPITAL.EXE™</strong><span>Fictional parody website.</span><span>Facilities: <b>20</b> • Unique facility comics: <b>100</b> • No copied comic template</span></footer>
+<script src="js/generated-content.js"></script><script src="js/facility-engine.js"></script>
 <script>
 (()=> {
 const facilities=[
@@ -44,16 +44,13 @@ list.innerHTML=facilities.map((f,i)=>{
  const panels=c?.[2]||["FACILITY: Awaiting Python comic.","SYSTEM: This should never happen.","UNIVERSE: It happened.","SYSTEM: Please reboot the universe."];
  return '<article class="facility-strip" id="facility-'+(i+1)+'"><div class="strip-heading"><span>'+f[0]+'</span><div><p class="eyebrow">'+f[1]+'</p><h2>'+f[2]+'</h2><p>'+f[3]+'</p></div></div><div class="comic-paper"><div class="comic-title">'+(c?.[1]||"UNIQUE INCIDENT")+'</div><div class="comic-grid four">'+panels.map((p,n)=>'<div class="panel '+(n===3?'punch':'')+'"><span class="panel-no">0'+(n+1)+'</span><div class="character">'+["🧑","🧑‍⚕️","🤖","😐"][n]+'</div><p>'+p+'</p></div>').join('')+'</div></div><div class="facility-note"><b>IN REAL LIFE:</b> '+f[2]+' is presented here as a fictional parody of a real hospital service. <span>COMIC IS NOT MEDICAL ADVICE.</span></div></article>';
 }).join("");
-const KEY="hospital-exe-facility-live-v1"; let used=[]; try{used=JSON.parse(localStorage.getItem(KEY)||"[]")}catch{}
-const ids=pool.map(x=>JSON.stringify(x));
-function live(){
- let available=pool.filter(x=>!used.includes(JSON.stringify(x)));
- if(!available.length){used=[];available=pool.slice();localStorage.setItem(KEY,"[]")}
- const x=available[Math.floor(Math.random()*available.length)]; used.push(JSON.stringify(x)); localStorage.setItem(KEY,JSON.stringify(used));
+const KEY="hospital-exe-facility-live-v2"; let bag=[]; try{bag=JSON.parse(localStorage.getItem(KEY)||"[]")}catch{}
+function refill(){bag=pool.map((_,i)=>i);for(let i=bag.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[bag[i],bag[j]]=[bag[j],bag[i]]}}
+function live(){if(!Array.isArray(bag)||!bag.length)refill();const x=pool[bag.pop()];localStorage.setItem(KEY,JSON.stringify(bag));
  document.getElementById("live-title").textContent=x[0];
  document.getElementById("live-comic-title").textContent=x[1];
  document.getElementById("live-panels").innerHTML=x[2].map((p,n)=>'<div class="panel '+(n===3?'punch':'')+'"><span class="panel-no">0'+(n+1)+'</span><div class="character">'+["🧑","🧑‍⚕️","🤖","😐"][n]+'</div><p>'+p+'</p></div>').join("");
- document.getElementById("live-count").textContent="MEMORY: "+used.length+" / "+pool.length;
+ document.getElementById("live-count").textContent="SHUFFLE-BAG: "+(pool.length-bag.length)+" / "+pool.length;
 }
 live();
 })();
