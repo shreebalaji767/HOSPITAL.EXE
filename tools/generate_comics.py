@@ -17,6 +17,10 @@ stories = [
     ("THE IT DEPARTMENT", "STAFF", "SERVER", "Restart the server.", "I have become architecture."),
     ("THE BED", "STAFF", "BED 12", "Who moved this bed?", "I moved myself."),
     ("THE LAB", "TECH", "TEST TUBE", "Please stay in the rack.", "I have dreams."),
+    ("THE BILL", "PATIENT", "BILLING", "What is this charge?", "Processing the processing."),
+    ("THE NIGHT SHIFT", "NURSE", "PRINTER", "Why is it quiet?", "PAPER JAM."),
+    ("THE FINAL BOSS", "ADMIN", "FORM 27-B", "We defeated the printer.", "You forgot me."),
+    ("THE HOSPITAL MAP", "VISITOR", "MAP", "Where is Radiology?", "The map is still loading."),
 ]
 
 def comic(title, left, right, line1, line2):
