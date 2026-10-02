@@ -1,7 +1,8 @@
-"""Generate browser content pools for HOSPITAL.EXE.
-Run with Python 3: python tools/generate_content.py
-The generated JavaScript is consumed by app.js. localStorage tracks consumed IDs.
+"""HOSPITAL.EXE content generator.
+All dynamic website text lives here. Run this file to regenerate js/generated-content.js.
+Duplicate entries are rejected before anything is written.
 """
+
 from pathlib import Path
 import json
 
@@ -10,19 +11,37 @@ POOLS = {
         "Fictional systems reporting in","Hospital systems are making noises","All departments have reported something",
         "Reality check: inconclusive","Telemetry has become suspicious","The building is awake",
         "Normality packet rejected","Hospital civilization synchronized","Everything is technically running",
-        "The dashboard has opinions","Reality service unavailable","The hospital has entered build mode"
+        "The dashboard has opinions","Reality service unavailable","The hospital has entered build mode",
+        "Routine status has become suspicious","The command center blinked twice","Normal operation has been misplaced",
+        "System confidence is approximately fictional","Hospital.exe is still pretending","Everything is under observation",
+        "The status panel knows too much","Reality has not responded to the ping"
+    ],
+    "departments": [
+        "Cardiology","Neurology","Surgery","Pediatrics","Radiology","Pathology","Emergency","ICU",
+        "Pharmacy","Laboratory","Reception","Hospital IT","Cafeteria","Housekeeping","Billing","Patient Transport",
+        "Medical Records","Waiting Room","Maintenance","Sterilization"
+    ],
+    "states": [
+        "OPERATIONAL","BUSY","CALIBRATING","RUNNING SMOOTHLY","SLIGHTLY CONFUSED","AWAITING COFFEE",
+        "MONITORING","PROCESSING","FINDING A PEN","UNDER REVIEW","REBOOTING","NEGOTIATING",
+        "DOCUMENTATION PENDING","MILDLY ALARMED","SEARCHING","PLEASE WAIT","TECHNICALLY FINE","ON HOLD"
     ],
     "activities": [
         "Queue behaving suspiciously well","Printer has resumed negotiations","Tea reserves detected",
-        "Doctor finder has found itself","One elevator is thinking","Forms have multiplied",
-        "A clipboard has gone missing","Reception has discovered a new token","The coffee protocol is active",
-        "Department meeting has exceeded its meeting","Wi-Fi is emotionally stable","A wheelchair has requested navigation",
-        "The lab fridge is humming confidently","A corridor has changed its mind","The billing screen is asking philosophical questions",
-        "A pen has entered witness protection","The photocopier has become management","Someone scheduled a meeting about scheduling",
-        "The waiting room has achieved sentience","The printer tray has filed paperwork","The elevator selected Floor Maybe",
-        "The hospital map has invented a hallway","A clipboard has been promoted","Tea has reached critical temperature",
-        "The reception bell is practicing Morse code","A form has reproduced overnight","The scanner is scanning nothing",
-        "A chair has been reserved for an unknown department","The intercom announced its own announcement"
+        "Doctor finder has found itself","One elevator is thinking","Forms have multiplied","A clipboard has gone missing",
+        "Reception has discovered a new token","The coffee protocol is active","Department meeting has exceeded its meeting",
+        "Wi-Fi is emotionally stable","A wheelchair has requested navigation","The lab fridge is humming confidently",
+        "A corridor has changed its mind","The billing screen is asking philosophical questions","A pen has entered witness protection",
+        "The photocopier has become management","Someone scheduled a meeting about scheduling","The waiting room has achieved sentience",
+        "The printer tray has filed paperwork","The elevator selected Floor Maybe","The hospital map has invented a hallway",
+        "A clipboard has been promoted","Tea has reached critical temperature","The reception bell is practicing Morse code",
+        "A form has reproduced overnight","The scanner is scanning nothing","A chair has been reserved for an unknown department",
+        "The intercom announced its own announcement","The token machine has counted itself","A corridor has requested a map",
+        "The billing calculator is taking a short break","A printer page has escaped","The lab label printer is improvising",
+        "The help desk has opened a help desk","The waiting room has acquired another waiting room","A file has been filed under 'file'",
+        "The elevator doors are considering their options","A clipboard is applying for promotion","The coffee machine passed its own audit",
+        "A form has requested a form","The reception computer is pretending to work","The scanner scanned the scanner",
+        "A chair has been moved exactly three centimeters","The intercom forgot what it was announcing"
     ],
     "chaos": [
         ["Printer diplomacy failed.","The printer has requested a lawyer."],["Queue instability detected.","Token 9001 has challenged the queue."],
@@ -30,14 +49,20 @@ POOLS = {
         ["Elevator disagreement.","Floor 4 has been temporarily renamed Thursday."],["Form multiplication event.","One form produced seventeen cousins."],
         ["Pen shortage emergency.","The last pen entered witness protection."],["Wi-Fi existential crisis.","The router is reconsidering its career."],
         ["Reception paradox.","The appointment arrived before the patient."],["Billing turbulence.","The calculator requested a second calculator."],
-        ["Lab rebellion.","The test tube appointed itself supervisor."],["Night-shift anomaly.","A corridor light is doing its own rounds."]
+        ["Lab rebellion.","The test tube appointed itself supervisor."],["Night-shift anomaly.","A corridor light is doing its own rounds."],
+        ["Token overflow.","The queue has invented Token 100000."],["Coffee containment breach.","The coffee machine knows the password."],
+        ["File system rebellion.","The missing file has filed a complaint."],["Scanner confusion.","The scanner scanned the scanner again."],
+        ["Corridor anomaly.","The hallway now has a hallway."],["Intercom incident.","The announcement announced another announcement."]
     ],
     "doctorReplies": [
         "Doctor says: Please stop asking the website medical questions.","Doctor is thinking... very loudly.",
         "Doctor has requested a coffee.","Doctor has left the comic panel.","Doctor says: Hmm.",
         "Doctor has opened another tab.","Doctor is waiting for the printer.","Doctor has misplaced the pen.",
         "Doctor referred the question to Reception.","Doctor is consulting the clipboard.",
-        "Doctor says: That sounds like a website problem.","Doctor entered diagnostic loading mode."
+        "Doctor says: That sounds like a website problem.","Doctor entered diagnostic loading mode.",
+        "Doctor is checking whether the form is actually a form.","Doctor has asked the queue for a second opinion.",
+        "Doctor is currently negotiating with Administration.","Doctor says: The printer knows more than I do.",
+        "Doctor has reached maximum tab capacity.","Doctor is waiting for the page to finish loading."
     ],
     "notifications": [
         "A clipboard has gone missing in a completely fictional corridor.","Printer status: negotiating with paper.",
@@ -45,12 +70,70 @@ POOLS = {
         "Form count increased without authorization.","Doctor finder located a doctor, then lost the finder.",
         "Lab beaker status: promoted.","Wi-Fi status: emotionally available.",
         "Waiting-room chair has remembered everything.","Reception bell is now monitoring reception.",
-        "Pen status: somewhere.","Photocopier requested management approval."
+        "Pen status: somewhere.","Photocopier requested management approval.",
+        "Token machine has reached a number nobody requested.","The hospital map has added a suspicious hallway.",
+        "A file has been found inside another file.","The coffee machine has requested overtime.",
+        "Printer tray status: existential.","Reception has discovered another clipboard.",
+        "Scanner status: scanning confidently.","Elevator status: thinking."
+    ],
+    "worldNames": [
+        "Reception Wing","Diagnostics Block","Skybridge ICU","Underground Diagnostics","Quantum Pharmacy",
+        "Emergency Tower","Tea Research Center","Printer Rehabilitation Block","Infinite Waiting Hall",
+        "Portal Ward","Department Of Unnecessary Buttons","Clipboard Archives","Night Shift Observatory",
+        "Queue Research Facility","Corridor Engineering Lab"
+    ],
+    "worldActions": [
+        "constructed a suspicious new wing","installed 47 unnecessary buttons","spawned a specialist with no map",
+        "opened a corridor to absolutely nowhere","approved a staircase that leads back to itself",
+        "installed a door that requires a form to open","built a waiting room inside the waiting room",
+        "connected two departments using a very long cable","gave the printer its own office",
+        "created a queue for the queue","installed a backup elevator for the first elevator",
+        "opened a department dedicated to opening departments","appointed a clipboard as temporary management"
+    ],
+    "keyboardAlerts": [
+        "Printer alert: it has developed philosophical differences with paper.",
+        "Printer alert: paper has requested a witness.",
+        "Printer alert: the tray is considering resignation.",
+        "Printer alert: document uploaded to the wrong dimension.",
+        "Chaos alert: the hospital has gained seventeen imaginary percent.",
+        "Chaos alert: reality has been placed on hold.",
+        "Chaos alert: normality failed the validation check.",
+        "Chaos alert: the queue has achieved sentience."
+    ],
+    "incidents": [
+        ["PRINTER RIOT","The printer has declared independence.",-35,8],
+        ["ELEVATOR PHILOSOPHY","The elevator refuses to visit Floor 2.",-20,6],
+        ["TEA SHORTAGE","Staff morale has become theoretical.",-25,10],
+        ["LAB MELTDOWN","The beaker is now the supervisor.",-45,14],
+        ["FORM APOCALYPSE","One form became twelve forms.",-15,12],
+        ["PEN EMERGENCY","The final pen disappeared into Administration.",-30,9],
+        ["WI-FI COLLAPSE","The router entered a reflective state.",-40,11],
+        ["CHAIR UPRISING","The waiting-room chairs reorganized themselves.",-18,7],
+        ["BELL INCIDENT","Reception bell started ringing before being touched.",-22,8],
+        ["COPY MACHINE REVOLT","The photocopier printed its resignation letter.",-32,10],
+        ["QUEUE EARTHQUAKE","Every token moved one position to the left.",-28,13],
+        ["CORRIDOR LOOP","The corridor connected to itself.",-38,15]
     ]
 }
 
+def duplicates(items):
+    seen = set()
+    dup = []
+    for item in items:
+        key = json.dumps(item, ensure_ascii=False, sort_keys=True)
+        if key in seen:
+            dup.append(item)
+        seen.add(key)
+    return dup
+
+for name, items in POOLS.items():
+    dup = duplicates(items)
+    if dup:
+        raise SystemExit(f"Duplicate content in {name}: {dup}")
+
 out = Path("js/generated-content.js")
 out.parent.mkdir(parents=True, exist_ok=True)
-out.write_text("/* AUTO-GENERATED — DO NOT EDIT */\nwindow.HOSPITAL_CONTENT = " +
-               json.dumps(POOLS, ensure_ascii=False, separators=(",", ":")) + ";\n", encoding="utf-8")
-print("Generated", out)
+payload = "/* AUTO-GENERATED BY tools/generate_content.py — DO NOT EDIT */\n"
+payload += "window.HOSPITAL_CONTENT = " + json.dumps(POOLS, ensure_ascii=False, separators=(",", ":")) + ";\n"
+out.write_text(payload, encoding="utf-8")
+print(f"Generated {out}: {sum(len(v) for v in POOLS.values())} unique entries.")
