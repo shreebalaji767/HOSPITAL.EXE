@@ -2,7 +2,8 @@ name: Generate Python Comics
 on:
   push:
     paths:
-      - "tools/generate_comics.py"\n      - "tools/generate_content.py"
+      - "tools/generate_comics.py"
+      - "tools/generate_content.py"
       - ".github/workflows/generate-comics.yml"
   workflow_dispatch:
 permissions:
@@ -15,7 +16,8 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: "3.x"
-      - run: python tools/generate_comics.py\n      - run: python tools/generate_content.py
+      - run: python tools/generate_comics.py
+      - run: python tools/generate_content.py
       - name: Commit generated comics
         run: |
           git config user.name "github-actions[bot]"
