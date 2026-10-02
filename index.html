@@ -7,9 +7,7 @@
   <meta name="description" content="HOSPITAL.EXE™ — fictional parody hospital command center.">
   <meta name="theme-color" content="#111111">
   <link rel="manifest" href="manifest.webmanifest">
-  <link rel="apple-touch-icon" href="assets/icons/icon-192.png">
   <link rel="icon" href="assets/logo.svg" type="image/svg+xml">
-<link rel="apple-touch-icon" href="assets/logo.svg">
 <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
@@ -22,6 +20,7 @@
       <a href="facilities.html">Facilities</a>
       <a href="doctors.html">Doctors</a>
       <a href="comics.html">Comics</a>
+      <a href="#command">Command</a>
       <a href="#chaos">Chaos</a>
       <button class="install-app" id="install-app" hidden>⬇ Install HOSPITAL.EXE</button>
     </nav>
@@ -65,11 +64,22 @@
       </div>
     </section>
 
+
+    <section class="section command-center" id="command">
+      <div class="section-head"><div><p class="eyebrow">HOSPITAL COMMAND CENTER</p><h2>The building is now running its own tiny civilization.</h2></div><span class="sticker">BUILD MODE: ON</span></div>
+      <div class="control-grid">
+        <button class="control-tile" data-command="build"><span>🧱</span><b>BUILD A DEPARTMENT</b><small>Construct another completely fictional wing.</small></button>
+        <button class="control-tile" data-command="upgrade"><span>⚡</span><b>UPGRADE SYSTEM</b><small>Install technology nobody requested.</small></button>
+        <button class="control-tile" data-command="spawn"><span>🧑‍⚕️</span><b>SPAWN SPECIALIST</b><small>A fictional specialist will appear from somewhere.</small></button>
+        <button class="control-tile" data-command="incident"><span>🚨</span><b>GENERATE INCIDENT</b><small>Because a quiet hospital is suspicious.</small></button>
+      </div>
+      <div class="queue-console"><span class="console-label">WORLD BUILD ENGINE</span><strong id="world-level">HOSPITAL LEVEL 01</strong><div class="queue-meter"><i id="world-progress"></i></div><p id="world-log">BOOT: fictional construction system online.</p></div>
+    </section>
     <section class="section absurd-zone"><div class="section-head"><div><p class="eyebrow">WARNING: EXCESSIVE ABSURDITY</p><h2>The hospital has lost contact with reality.</h2></div><span class="sticker">100% FICTIONAL</span></div><div class="absurd-grid"><div class="absurd-card"><span class="giant">🖨️</span><h3>PRINTER ICU</h3><p>Printer is receiving emotional support.</p><b>STATUS: PAPERLESS PANIC</b></div><div class="absurd-card tilt"><span class="giant">🧑‍⚕️</span><h3>DOCTOR FINDER</h3><p>Doctor has been located. Doctor is now looking for the doctor finder.</p><b>STATUS: LOOP DETECTED</b></div><div class="absurd-card"><span class="giant">☕</span><h3>TEA DEPARTMENT</h3><p>Critical caffeine infrastructure for non-critical conversations.</p><b>STATUS: OVERCLOCKED</b></div><div class="absurd-card tilt"><span class="giant">🛗</span><h3>ELEVATOR</h3><p>It goes up. It goes down. It has no idea why.</p><b>STATUS: PHILOSOPHICAL</b></div></div></section><section class="section live-status" id="live-status"><div class="section-head"><div><p class="eyebrow">LIVE HOSPITAL STATUS</p><h2 id="live-status-title">Synchronizing fictional reality…</h2></div><span class="live-dot">● LIVE</span></div><div class="live-status-grid" id="live-status-grid"></div><p class="status-timestamp" id="status-timestamp">Awaiting first fictional telemetry packet…</p></section>
 
     <section class="section chaos-section" id="chaos">
       <div class="chaos-box">
-        <div><p class="eyebrow">LIVE HOSPITAL STATUS</p><h2 id="status-title">Everything is under control.</h2><p id="status-message">This statement has not been independently verified.</p></div>
+        <div><p class="eyebrow">CHAOS CONTROL</p><h2 id="status-title">Everything is under control.</h2><p id="status-message">This statement has not been independently verified.</p></div>
         <button class="button primary" id="chaos-button">Increase Chaos</button>
       </div>
       <div class="status-grid">
