@@ -21,3 +21,5 @@ let deferredPrompt=null;const installBtn=document.getElementById('install-app');
 
 document.addEventListener('keydown',e=>{if(e.key.toLowerCase()==='p')alert('🖨️ PRINTER ALERT: It has developed philosophical differences with paper.');if(e.key.toLowerCase()==='c')alert('💥 CHAOS LEVEL INCREASED BY 17%.')});
 setInterval(()=>{if(!document.hidden&&Math.random()<.18){const notes=['🔊 Someone has misplaced the doctor’s pen.','🖨️ Printer status: emotionally unavailable.','☕ Tea has been successfully deployed.','🛗 Elevator has selected a philosophical floor.'];alert(notes[Math.floor(Math.random()*notes.length)])}},15000);
+
+if('serviceWorker' in navigator){window.addEventListener('load',()=>navigator.serviceWorker.register('./sw.js').catch(()=>{}));}
