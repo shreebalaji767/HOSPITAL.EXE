@@ -77,7 +77,9 @@ stories = [
     ["THE NOTIFICATION","NURSE","PHONE","What's that alarm?","A notification demanding attention."],
     ["THE AIRPLANE MODE","PATIENT","PHONE","Why is there no network?","Your phone has gone on vacation."],
     ["THE FINAL FORM","ADMIN","FORM 99-Z","Is this the final form?","Yes. Unless there is a final final form."],
-]\n\ndef comic(title, left, right, line1, line2, *extra):
+]
+
+def comic(title, left, right, line1, line2, *extra):
     if extra:
         line2 = line2 + " " + " ".join(extra)
     e = escape
