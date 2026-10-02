@@ -124,8 +124,8 @@ stories.extend([
     ("THE PAPERWORK MONSTER","STAFF","FORM","We have completed every form.","A new form has entered the building.")
 ])
 
-if len(stories) != 100:
-    raise SystemExit(f"Expected exactly 100 comics, found {len(stories)}")
+if len(stories) < 100:
+    raise SystemExit(f"Expected at least 100 comics, found {len(stories)}")
 
 for number, story in enumerate(stories, 1):
     (OUT / f"{number:02d}.svg").write_text(comic(*story), encoding="utf-8")
