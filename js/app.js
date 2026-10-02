@@ -12,8 +12,10 @@ function nextUnique(pool,key){
   const picked=available[Math.floor(Math.random()*available.length)];
   used.push(itemKey(picked));history[key]=used;
   try{localStorage.setItem(NONREPEAT_KEY,JSON.stringify(history))}catch{}
-  return picked;
+  renderHistoryInfo(); return picked;
 }
+function historyCount(){return Object.values(history).reduce((n,v)=>n+(Array.isArray(v)?v.length:0),0)}
+function renderHistoryInfo(){const n=document.getElementById('history-count'),s=document.getElementById('history-state');if(n)n.textContent=historyCount()+' ITEMS REMEMBERED';if(s)s.textContent='localStorage tracking '+(localStorage.getItem(NONREPEAT_KEY)?'ACTIVE':'READY')+' • no-repeat pools reset only after exhaustion.'}
 function sampleUnique(pool,count,key){
   if(!Array.isArray(pool)||!pool.length)return [];
   let used=Array.isArray(history[key])?history[key]:[];
@@ -25,8 +27,8 @@ function sampleUnique(pool,count,key){
   try{localStorage.setItem(NONREPEAT_KEY,JSON.stringify(history))}catch{}
   return picked;
 }
-function clearContentHistory(){history={};try{localStorage.removeItem(NONREPEAT_KEY)}catch{}}
-loadHistory();
+function clearContentHistory(){history={};try{localStorage.removeItem(NONREPEAT_KEY)}catch{}renderHistoryInfo()}
+loadHistory();renderHistoryInfo();
 const menu=document.querySelector('.menu-toggle');const nav=document.querySelector('.site-header nav');if(menu&&nav){menu.addEventListener('click',()=>nav.classList.toggle('open'))}
 
 const chaos=document.getElementById('chaos-button'),title=document.getElementById('status-title'),message=document.getElementById('status-message');
@@ -48,7 +50,7 @@ const statusEl=document.getElementById('live-status-grid'),statusTitle=document.
 const departments=window.HOSPITAL_CONTENT.departments;
 const states=window.HOSPITAL_CONTENT.states;
 const activities=window.HOSPITAL_CONTENT.activities;
-function generateStatus(){if(!statusEl)return;const selected=sampleUnique(departments,8,'liveDepartments'),used=new Set();statusEl.innerHTML=selected.map((dept,i)=>{let state=nextUnique(states,'liveStates');while(used.has(state)){state=nextUnique(states,'liveStates')}used.add(state);const activity=nextUnique(activities,'liveActivities');return '<article class="live-card"><span class="live-number">'+String(i+1).padStart(2,'0')+'</span><div><strong>'+dept+'</strong><b>'+state+'</b><p>'+activity+'.</p></div></article>'}).join('');statusTitle.textContent=nextUnique(window.HOSPITAL_CONTENT.statusTitles,'statusTitles');stamp.textContent='Last fictional update: '+new Date().toLocaleTimeString([], {hour:'2-digit',minute:'2-digit',second:'2-digit'})+' • Auto-refresh: 12 seconds';saveState()}
+function generateStatus(){if(!statusEl)return;const selected=sampleUnique(departments,8,'liveDepartments'),statesForCards=sampleUnique(states,8,'liveStates');statusEl.innerHTML=selected.map((dept,i)=>{const state=statesForCards[i];const activity=nextUnique(activities,'liveActivities');return '<article class="live-card"><span class="live-number">'+String(i+1).padStart(2,'0')+'</span><div><strong>'+dept+'</strong><b>'+state+'</b><p>'+activity+'.</p></div></article>'}).join('');statusTitle.textContent=nextUnique(window.HOSPITAL_CONTENT.statusTitles,'statusTitles');stamp.textContent='Last fictional update: '+new Date().toLocaleTimeString([], {hour:'2-digit',minute:'2-digit',second:'2-digit'})+' • Auto-refresh: 12 seconds';saveState()}
 setInterval(generateStatus,12000);generateStatus();
 
 const STORAGE_KEY='hospital-exe-state-v2';
@@ -74,6 +76,8 @@ function unlocked(b){return gameState.level>=b.unlock}
 function renderGame(){if(!gameTiles)return;gm.textContent=gameState.money;gs.textContent=gameState.staff;gp.textContent=Math.max(0,gameState.power)+'%';gc.textContent=gameState.chaos;gl.textContent=String(gameState.level).padStart(2,'0');glog.textContent=gameState.log;gameTiles.innerHTML=gameState.tiles.map((id,i)=>{const b=buildings.find(x=>x.id===id);return '<button class="build-tile '+(b?'occupied':'')+'" data-slot="'+i+'">'+(b?'<span class="tile-icon">'+b.icon+'</span><small>'+b.name+'</small>':'<span class="tile-icon">＋</span><small>EMPTY</small>')+'</button>'}).join('');gameTiles.querySelectorAll('.build-tile').forEach(t=>t.addEventListener('click',()=>buildAt(+t.dataset.slot)));const available=buildings.filter(b=>unlocked(b)&&!gameState.tiles.includes(b.id));options.innerHTML=available.map(b=>'<button class="build-option '+(gameState.selected===b.id?'selected':'')+'" data-build="'+b.id+'"><b>'+b.icon+' '+b.name+'</b><small>💰 '+b.cost+' • ⚡ '+b.power+' • 👥 '+b.staff+'</small></button>').join('');options.querySelectorAll('.build-option').forEach(b=>b.addEventListener('click',()=>{gameState.selected=b.dataset.build;renderGame()}));const next=buildings.find(b=>b.unlock>gameState.level);if(next){ut.textContent='Next unlock: '+next.name;ux.textContent='Reach Level '+next.unlock+' to unlock '+next.name+'.';up.style.width=Math.min(100,((gameState.level-1)/(next.unlock-1))*100)+'%'}else{ut.textContent='ALL SYSTEMS UNLOCKED';ux.textContent='The hospital has become legally unexplainable.';up.style.width='100%'}saveGame()}
 function buildAt(slot){if(gameState.tiles[slot]){gameState.log='DEMOLITION DENIED: the building has developed emotional attachment.';renderGame();return}const b=buildings.find(x=>x.id===gameState.selected);if(!b)return;if(gameState.tiles.includes(b.id)){gameState.log='DUPLICATE DENIED: '+b.name+' already exists in this hospital.';renderGame();return;}if(gameState.money<b.cost){gameState.log='BUDGET ERROR: the hospital cannot afford '+b.name+'.';renderGame();return}gameState.money-=b.cost;gameState.staff+=b.staff;gameState.power=Math.max(0,gameState.power-b.power);gameState.score+=b.cost;gameState.tiles[slot]=b.id;if(gameState.score>=350*gameState.level){gameState.level++;gameState.money+=120;gameState.log='LEVEL UP: '+b.name+' triggered an unnecessary expansion. BONUS +120.'}else gameState.log='BUILD COMPLETE: '+b.name+' installed. Nobody read the manual.';renderGame()}
 document.getElementById('incident-button')?.addEventListener('click',()=>{const incidents=window.HOSPITAL_CONTENT.chaos.map((x,i)=>[x[0],x[1],-10-(i%5)*7,5+(i%8)]);const e=nextUnique(incidents,'gameIncidents');gameState.money=Math.max(0,gameState.money+e[2]);gameState.chaos+=e[3];gameState.log='DISASTER: '+e[0]+' — '+e[1]+' '+e[2]+' budget.';if(gameState.chaos>=50){gameState.level++;gameState.chaos=0;gameState.money+=150;gameState.log+=' CHAOS LEVEL-UP! Emergency funding: +150.'}renderGame()});
+document.getElementById('clear-history')?.addEventListener('click',()=>{if(confirm('Clear only no-repeat content memory? Your hospital game stays safe.'))clearContentHistory()});
+document.getElementById('reset-data')?.addEventListener('click',()=>{if(confirm('Erase ALL HOSPITAL.EXE localStorage data?')){localStorage.removeItem(NONREPEAT_KEY);localStorage.removeItem(STORAGE_KEY);localStorage.removeItem(GAME_KEY);localStorage.removeItem('hospital-exe-world');location.reload()}});
 document.getElementById('reset-game')?.addEventListener('click',()=>{if(confirm('Erase the fictional hospital and start over?')){gameState={...defaultGame,tiles:Array(20).fill(null)};renderGame()}});
 renderGame();
 
