@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>HOSPITAL.EXE™ — Fictional Parody Hospital</title>
+  <meta name="description" content="A fictional static hospital parody where facilities are explained through comic strips.">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <div class="top-alert">FICTIONAL PARODY • NO REAL HOSPITAL • NO REAL MEDICAL SERVICE</div>
+  <header class="site-header">
+    <a class="brand" href="index.html"><span class="brand-mark">+</span><span>HOSPITAL<span class="exe">.EXE</span><small>Healthcare has encountered an unexpected error.</small></span></a>
+    <button class="menu-toggle" aria-label="Open menu">☰</button>
+    <nav>
+      <a class="active" href="index.html">Home</a>
+      <a href="facilities.html">Facilities</a>
+      <a href="doctors.html">Doctors</a>
+      <a href="comics.html">Comics</a>
+      <a href="#chaos">Chaos</a>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="hero-copy">
+        <p class="eyebrow">WELCOME TO THE MOST QUESTIONABLE MEDICAL WEBSITE ON THE INTERNET</p>
+        <h1>Your healthcare has encountered an <em>unexpected error.</em></h1>
+        <p>Meet fictional doctors, explore fictional facilities, and discover why our printer has been declared a critical patient.</p>
+        <div class="hero-actions">
+          <a class="button primary" href="facilities.html">Explore Facilities →</a>
+          <a class="button" href="comics.html">Read Comics</a>
+        </div>
+      </div>
+      <div class="hero-comic comic-paper">
+        <div class="comic-caption">THE ARRIVAL</div>
+        <div class="panel-row">
+          <div class="panel"><div class="character patient">😰</div><strong>PATIENT</strong><p>“I think I need a doctor.”</p></div>
+          <div class="panel"><div class="character receptionist">🧑‍💼</div><strong>RECEPTION</strong><p>“Excellent. You have come to the right building.”</p></div>
+        </div>
+        <div class="panel-row">
+          <div class="panel"><div class="character patient">🤔</div><p>“Are you sure?”</p></div>
+          <div class="panel punch"><div class="sound">DUN DUN</div><p>“We have a sign.”</p></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section intro">
+      <div><p class="eyebrow">THE RULE</p><h2>If a normal hospital website uses a photo, we use a comic.</h2></div>
+      <p>Every facility below explains what it does through a short visual story. The jokes are fictional; the facility concepts are presented for parody.</p>
+    </section>
+
+    <section class="section" id="facilities-preview">
+      <div class="section-head"><div><p class="eyebrow">COMIC FACILITIES</p><h2>Real departments. Unreal situations.</h2></div><a href="facilities.html" class="text-link">See all →</a></div>
+      <div class="card-grid">
+        <a class="facility-card" href="facilities.html#radiology"><span class="facility-icon">🩻</span><h3>Radiology</h3><p>Where machines make mysterious noises and everyone pretends that's normal.</p><span class="mini-link">Read the strip →</span></a>
+        <a class="facility-card" href="facilities.html#lab"><span class="facility-icon">🧪</span><h3>Laboratory</h3><p>Where numbers become reports and reports become questions.</p><span class="mini-link">Read the strip →</span></a>
+        <a class="facility-card" href="facilities.html#emergency"><span class="facility-icon">🚑</span><h3>Emergency</h3><p>Where “stay calm” is professionally requested and personally impossible.</p><span class="mini-link">Read the strip →</span></a>
+      </div>
+    </section>
+
+    <section class="section chaos-section" id="chaos">
+      <div class="chaos-box">
+        <div><p class="eyebrow">LIVE HOSPITAL STATUS</p><h2 id="status-title">Everything is under control.</h2><p id="status-message">This statement has not been independently verified.</p></div>
+        <button class="button primary" id="chaos-button">Increase Chaos</button>
+      </div>
+      <div class="status-grid">
+        <div><span>Doctors</span><b>DETECTED</b></div><div><span>Nurses</span><b>PROBABLY</b></div><div><span>Printer</span><b class="danger">ERROR</b></div><div><span>Tea</span><b>OPERATIONAL</b></div>
+      </div>
+    </section>
+  </main>
+
+  <footer><strong>HOSPITAL.EXE™</strong><span>Fictional parody website. Not a real hospital or medical service.</span><span>Common Sense: <b>undefined</b></span></footer>
+  <script src="js/app.js"></script>
+</body>
+</html>
